@@ -1,0 +1,16 @@
+.main{
+
+height: 90vh;
+/* border: 2px solid red; */
+display: flex;
+justify-content: center;
+margin-right: 5px;
+
+
+}
+
+.papper{
+    display: flex;
+justify-content: center;
+width: 100%;
+}
