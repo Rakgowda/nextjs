@@ -20,16 +20,19 @@ const Layout = ({children}) => {
     const classes = useStyles();
     return (  
 <>
-            <NavBar>
-
-            </NavBar>
+            
         <div className={classes.root}>
       <Grid container spacing={0}>
         <Grid item xs={2}>
          <SideNav></SideNav>
         </Grid>
         <Grid item xs={10}>
+        
         <Paper elevation={3} className={home.fullWidthHeight}>
+        <NavBar>
+
+        </NavBar>
+        <br></br>
           {children}
           </Paper>
         </Grid>

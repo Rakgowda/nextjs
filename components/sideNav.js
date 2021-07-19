@@ -24,15 +24,27 @@ function SideNav(props) {
 
     return (
         <div className={sideNav.main}>
+
+          <style jsx> 
+           { 
+           `
+           a{
+            text-decoration: none !important;
+            color: black !important;
+            } 
+            ` 
+           }
+          </style>
+        
             <Paper elevation={3} className={sideNav.papper}>
             <div className={home.flexcontainer}>
 
 
-                 <div className={home.flexchild}> <Link href="/item">Item</Link></div>
-                 <div className={home.flexchild}> <Link href="/buy">Buy</Link></div>
-                 <div className={home.flexchild}> <Link href="/">Home</Link></div>
-                 <div className={home.flexchild}> <Link href="/sell">Sell</Link></div>
-                 <div className={home.flexchild}> <Link href="/report">Report</Link></div>
+                 <div className={home.flexchild}> <Link href="/item" className={home.a}>Item</Link></div>
+                 <div className={home.flexchild}> <Link href="/buy" className={home.a}>Buy</Link></div>
+                 <div className={home.flexchild}> <Link href="/" className={home.a}>Home</Link></div>
+                 <div className={home.flexchild}> <Link href="/sell" className={home.a}>Sell</Link></div>
+                 <div className={home.flexchild}> <Link href="/report" className={home.a}>Report</Link></div>
 
             </div>
             </Paper>
