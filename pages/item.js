@@ -1,8 +1,28 @@
 import React,{useState,useEffect} from 'react';
 import CardLayout from '../components/card';
+import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+    fab:{
+        position: "absolute",
+        bottom: "2em",
+        right: "2em"
+    }
+  }));
 
 function Item(props) {
-
+    const classes = useStyles();
+   
     const [item, setitem] = useState([]);
     useEffect(() => {
         
@@ -44,6 +64,10 @@ function Item(props) {
                 )
             })}
             </div>
+
+            <Fab color="primary" aria-label="add" className={classes.fab}>
+        <AddIcon />
+      </Fab>
         </>
     );
 }
