@@ -36,8 +36,8 @@ function SideNav(props) {
            }
           </style>
         
-            <Paper elevation={3} className={sideNav.papper}>
-            <div className={home.flexcontainer}>
+            <Paper elevation={3} className={`${sideNav.papper} ${home.fixedPosition}`} >
+            <div className={`${home.flexcontainer} `}>
 
 
                  <div className={home.flexchild}> <Link href="/item" className={home.a}>Item</Link></div>

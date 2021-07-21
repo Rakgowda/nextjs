@@ -53,7 +53,7 @@ data:[
       {todayData.map(item=>{
 
         return <div className="m-2" key={item.itemType}>
-        <CardLayout data={item}></CardLayout>
+        <CardLayout data={item} edit="false"></CardLayout>
 
         </div>
       })}

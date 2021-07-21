@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles,MuiThemeProvider,createMuiTheme  } from '@material-ui/core/styles';
+import { makeStyles,MuiThemeProvider,createTheme  } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import cardstyle from "../styles/Card.module.css"
 import themeStyle from "../styles/Theme.module.css"
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
 const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -24,8 +26,17 @@ const useStyles = makeStyles({
     pos: {
       marginBottom: 12,
     },
+    fab:{
+      transition: "display 2s linear 1s"
+     
+      
+  },
+  actionbotton:{
+    "display": "flex",
+    "justify-content": "end"
+  }
   });
-  const THEME = createMuiTheme({
+  const THEME = createTheme({
     typography: {
     //   "fontFamily": "\"MyCustomFont\"",
     //   "fontSize": 20,
@@ -39,14 +50,25 @@ const useStyles = makeStyles({
     },
   });
 
-function CardLayout({data}) {
+function CardLayout({data,edit,onEditHandle}) {
 
 
     const classes = useStyles();
+    const [isHover, setisHover] = React.useState(false);
+
+    function hoverHandle(param) {  
+      setisHover(true)
+    }
+    function hoverLeaveHandle(param) {  
+      setisHover(false)
+    }
+
+    
 
     return (
         <div>
-            <Card className={classes.root} variant="outlined">
+            <Card id="card" className={`${classes.root} ${cardstyle.card}`} variant="outlined" onMouseEnter={hoverHandle} 
+            onMouseLeave={hoverLeaveHandle}>
       <CardContent>
       <MuiThemeProvider theme={THEME}>
         <Typography  color={data.color} variant="h4" align="center" className="font-weight-bold" >
@@ -57,9 +79,9 @@ function CardLayout({data}) {
 
         <div className="d-flex flex-column">
 
-        {data.data.map(item=>{
+        {data.data.map((item,i)=>{
           return(
-        <div className="d-flex justify-content-between">  
+        <div className="d-flex justify-content-between" key={i}>  
           <Typography  color="textPrimary" variant="h6" className="text-capitalize">{item[0]}</Typography>
           <Typography  color="textSecondary" variant="h6" style={{color:item[2]!=undefined?item[2]:""}}>{item[1]} </Typography>
         </div>
@@ -70,9 +92,16 @@ function CardLayout({data}) {
            
         </div>
       </CardContent>
-      {/* <CardActions> */}
-        {/* <Button size="small">Learn More</Button> */}
-      {/* </CardActions> */}
+      
+      <CardActions className={`${classes.actionbotton}`}>
+      {edit !=undefined && edit =="true"?(
+        <Fab id="actionIcon" color="primary" aria-label="add"  size="small" className={`${classes.fab}`} 
+        style={{display:!isHover?"none":"block"}} onClick={onEditHandle}>
+        <EditIcon />
+      </Fab>
+      ):""}
+      
+      </CardActions>
     </Card>
         </div>
     );
