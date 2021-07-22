@@ -10,6 +10,7 @@ import cardstyle from "../styles/Card.module.css"
 import themeStyle from "../styles/Theme.module.css"
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
   },
   actionbotton:{
     "display": "flex",
-    "justify-content": "end"
+    "justify-content": "center"
   }
   });
   const THEME = createTheme({
@@ -50,7 +51,7 @@ const useStyles = makeStyles({
     },
   });
 
-function CardLayout({data,edit,onEditHandle}) {
+function CardLayout({data,edit,onEditHandle,index,deleteHandle}) {
 
 
     const classes = useStyles();
@@ -95,10 +96,16 @@ function CardLayout({data,edit,onEditHandle}) {
       
       <CardActions className={`${classes.actionbotton}`}>
       {edit !=undefined && edit =="true"?(
+        <>
         <Fab id="actionIcon" color="primary" aria-label="add"  size="small" className={`${classes.fab}`} 
-        style={{display:!isHover?"none":"block"}} onClick={onEditHandle}>
+        style={{display:!isHover?"none":"block"}} onClick={()=>onEditHandle(data,index)}>
         <EditIcon />
       </Fab>
+      <Fab id="deleteicon" color="secondary" aria-label="add"  size="small" className={`${classes.fab}`} 
+      style={{display:!isHover?"none":"block"}} onClick={()=>deleteHandle(data,index)}>
+      <DeleteIcon />
+    </Fab>
+    </>
       ):""}
       
       </CardActions>

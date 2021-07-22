@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
+    noitem:{
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%),"
+    }
   }));
 
 function Item(props) {
@@ -40,10 +45,10 @@ function Item(props) {
     const [item, setitem] = useState([]);
 
     const itemName = React.useRef("");
-    const itemGST = React.useRef(0);
-    const itemRate = React.useRef(0);
- 
-
+    const itemGST = React.useRef("");
+    const itemRate = React.useRef("");
+    const isEditing = React.useRef(false);
+    const getIndex = React.useRef();
 
     const [buttondisable,setbuttondisable] = useState(true)
 
@@ -52,8 +57,9 @@ function Item(props) {
     };
   
     const handleClose = () => {
-      
+      isEditing.current =false;
       setOpen(false);
+      setbuttondisable(true);
       
     };
 
@@ -102,10 +108,19 @@ function Item(props) {
         ],
         "color":"primary"
       }
-      items=[...item,itemdata];
+      
 
-      // console.log(items)
-      setitem(items);
+      if(!isEditing.current)
+      {
+        items=[...item,itemdata];
+        setitem(items);
+      }
+      else{
+        items =item;
+        items[getIndex.current] = itemdata;
+        setitem(items)
+      }
+      
       handleClose();
 
     }
@@ -134,8 +149,23 @@ function Item(props) {
         setitem(items)
     }, [])
 
-    function onEditHandle(){
-        alert("rak");
+    function onEditHandle(item,index){
+      // console.log(item)
+      itemName.current = item.title;
+      itemRate.current = item.data[0][1];
+      itemGST.current = item.data[1][1];
+      isEditing.current = true;
+      getIndex.current = index;
+      handleOpen()
+      setbuttondisable(false)
+        // alert("rak");
+    }
+
+    function deleteHandle(data,index){
+
+      let newItem = item.filter((e,i)=> e.title!=data.title && index != i);
+      setitem(newItem)
+
     }
 
 
@@ -143,13 +173,21 @@ function Item(props) {
         <>
         <h1>Item's</h1>
         <div className="d-flex  justify-content-center flex-wrap mt-5">
-            {item.map((i,index)=>{
+            {item.length >0 ?item.map((i,index)=>{
                 return (
                     <div className="m-2" key={index}>
-                    <CardLayout onEditHandle={onEditHandle} data={i} edit="true"></CardLayout>
+                    <CardLayout 
+                    onEditHandle={onEditHandle}
+                    deleteHandle={deleteHandle} 
+                    data={i} 
+                    edit="true" 
+                    index={index}
+                    ></CardLayout>
                     </div>
                 )
-            })}
+            }):(
+              <h2 className={classes.noitem}>No Item available</h2>
+            )}
             </div>
 
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleOpen} >
@@ -170,22 +208,25 @@ function Item(props) {
             <div id="transition-modal-description">
             <form className={classes.root} noValidate autoComplete="off">
       
-         <div><TextField id="outlined-basic" label="Item Name" inputRef={itemName} onChange={checkFieldValue} defaultValue={itemName.current} /></div>
+         <div><TextField id="outlined-basic" label="Item Name" 
+         inputRef={itemName} onChange={checkFieldValue} defaultValue={itemName.current} /></div>
          <div> <TextField id="outlined-basic" label="Rate" inputRef={itemRate} 
-         
+         defaultValue={itemRate.current}
           inputProps={{
             maxLength: 13,
             step: ".01",
             
           }}
          onChange={checkFieldValue} /></div>
-         <div> <TextField id="outlined-basic" label="GST"  inputRef={itemGST} 
+         <div> 
+           <TextField id="outlined-basic" label="GST"  inputRef={itemGST} 
          
           inputProps={{
             maxLength: 13,
             step: "1.0"
             
           }}
+          defaultValue={itemGST.current}
          onChange={checkFieldValue} /></div>
          <div style={{"display": "flex","justify-content": "end","margin-top": "2em"}}>
            <Button variant="contained" color="primary" disabled={buttondisable} onClick={onSubmit}>

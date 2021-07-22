@@ -1,3 +1,8 @@
 .ml2{
     margin-left: 3em !important;
 }
+
+.flexCenter{
+    display: flex;
+  justify-content: center;
+  }

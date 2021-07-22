@@ -1,9 +1,19 @@
-import React from 'react';
-
+import React,{useSate,useRef} from 'react';
+import CustomerDeatil from "../components/CustomerDetail"
 function Buy(props) {
+
+    const CustomerDetail = useRef({
+        name:"",
+        address:"",
+        phone:""
+    })
+
     return (
         <div>
-            Buy
+            <h1>Buy</h1>
+
+            <CustomerDeatil></CustomerDeatil>
+
         </div>
     );
 }
