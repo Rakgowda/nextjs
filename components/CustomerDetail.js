@@ -44,9 +44,10 @@ const useStyles = makeStyles({
     },
   });
 
-const CustomerDeatil = () => {
+const CustomerDeatil = (props) => {
 
     const classes = useStyles();
+
 
     return ( 
         <div className="d-flex justify-content-center flex-wrap mt-5r">
@@ -57,9 +58,6 @@ const CustomerDeatil = () => {
          <span className="text-capitalize">customer detail</span>
         </Typography>
         </MuiThemeProvider>
-       
-
-        
 
         <form className={classes.root} noValidate autoComplete="off">
         <div className="d-flex justify-content-center flex-column " >  
@@ -72,7 +70,9 @@ const CustomerDeatil = () => {
                 step: "1.0"
                 
                 }}
-                
+                onChange={props.onChange}
+                defaultValue={props.CustomerName.current}
+                inputRef={props.CustomerName}
                 />
         </div> 
          <div className="m-2 d-flex justify-content-center">
@@ -83,7 +83,9 @@ const CustomerDeatil = () => {
                 step: "1.0"
                 
                 }}
-                
+                onChange={props.onChange}
+                defaultValue={props.CustomerAdd.current}
+                inputRef={props.CustomerAdd}
                 />
         </div> 
          <div className="m-2 d-flex justify-content-center">
@@ -94,7 +96,9 @@ const CustomerDeatil = () => {
                 step: "1.0"
                 
                 }}
-                
+                onChange={props.onChange}
+                defaultValue={props.CustomerPhone.current}
+                inputRef={props.CustomerPhone}
                 /> 
         </div> 
        
@@ -107,7 +111,9 @@ const CustomerDeatil = () => {
       
       <CardActions className={`${classes.actionbotton}`}>
     
-      <Button size="medium" variant="contained" color="primary">
+      <Button size="medium" variant="contained" color="primary" 
+      onClick={props.onClicCusNext}
+      disabled={props.customerNextButton}>
         Next
       </Button>
       </CardActions>
