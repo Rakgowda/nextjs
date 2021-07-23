@@ -150,7 +150,7 @@ function Item(props) {
     }, [])
 
     function onEditHandle(item,index){
-      // console.log(item)
+
       itemName.current = item.title;
       itemRate.current = item.data[0][1];
       itemGST.current = item.data[1][1];
@@ -158,7 +158,6 @@ function Item(props) {
       getIndex.current = index;
       handleOpen()
       setbuttondisable(false)
-        // alert("rak");
     }
 
     function deleteHandle(data,index){
@@ -194,6 +193,7 @@ function Item(props) {
         <AddIcon />
       </Fab>
 
+{/* model start */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -238,6 +238,9 @@ function Item(props) {
           </div>
         
       </Modal>
+
+{/* model end */}
+
         </>
     );
 }

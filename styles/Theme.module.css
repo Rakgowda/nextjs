@@ -6,3 +6,22 @@
     display: flex;
   justify-content: center;
   }
+
+.placeBottomleft
+{
+        position: absolute !important;
+        bottom: 2em !important;
+        left: 20em !important;
+}
+
+.placeBottomRight
+{
+        position: absolute !important;
+        bottom: 2em !important;
+        right: 7em !important;
+}
+
+.bottom{
+    position: absolute !important;
+        bottom: 2em !important;
+}

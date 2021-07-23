@@ -1,9 +1,26 @@
 import React,{useState,useRef} from 'react';
 import CustomerDeatil from "../components/CustomerDetail"
 import Button from '@material-ui/core/Button';
+import ItemSelect from "../components/itemSelectList"
+import theme from "../styles/Theme.module.css"
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import Fab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+  }));
+  
 
 function Buy(props) {
-
+const classes = useStyles();
     const [custDetail, setcustDetail] = useState({})
     const CustomerName = useRef("")
     const CustomerAdd = useRef("")
@@ -11,6 +28,8 @@ function Buy(props) {
 
     const [customerNextButton,setcustomerNextButton] = useState(true);
     const [nextCust, setnextCust] = useState(false)
+    const [itemCount, setitemCount] = useState([])
+    const itemCountRef = useRef(0)
 
     function onChangeCusDeatil(){
         debugger
@@ -46,6 +65,32 @@ function Buy(props) {
          CustomerPhone.current = custDetail.phone
         setnextCust(false)
     }
+    function incrementCount()
+    {
+        debugger
+        itemCountRef.current = itemCountRef.current+1;
+        
+        let newitem = [...itemCount,itemCountRef.current]
+        setitemCount(newitem)
+    }
+    function removeItem(index)
+    {
+            let newitem = itemCount.filter(e=>e!=index)
+            setitemCount(newitem)
+    }
+    function item()
+    {
+        let item=[];
+        for(let i=0;i<itemCount.length;i++)
+        {
+            item.push(<ItemSelect key={i} count={i} itemIndex={itemCount[i]} removeItem={removeItem}></ItemSelect>)
+        }
+
+        item.push(<Fab color="primary" aria-label="add" onClick={incrementCount}>
+        <AddBoxIcon />
+      </Fab>) ;
+        return item;
+    }
 
     return (
         <div>
@@ -68,11 +113,34 @@ function Buy(props) {
 
             {!nextCust?"":(
                     <div>
-                   <Button size="medium" variant="contained" color="primary" 
-      onClick={onClickItemPrev}
-      >
-        Prev
-      </Button>
+
+                        <div className="d-flex  justify-content-center mt-5 flex-wrap">
+                                            {item()}
+                        </div>
+
+                       
+                        < Button size = "medium"
+                        variant = "contained"
+                        color = "primary"
+                        onClick = {
+                                onClickItemPrev
+                            } 
+                            className={theme.placeBottomleft}
+                        >
+                            Prev 
+                        </Button>
+
+                        < Button size = "medium"
+                        variant = "contained"
+                        color = "primary"
+                        onClick = {
+                                onClickItemPrev
+                            } 
+                            className={theme.placeBottomRight}
+                        >
+                            Next 
+                        </Button>
+                       
 
                     </div>
             )}
