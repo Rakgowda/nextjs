@@ -7,6 +7,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 import ItemOverView from "../components/ItemOverView"
+import CustomizedSteppers from "../components/Stepper"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,6 +41,8 @@ const classes = useStyles();
     const itemCountRef = useRef(0)
     const [nextItemAdd, setnextItemAdd] = useState(false)
     const [overview,setOverview] = useState(false)
+    const [stepper,setStepper] = useState(0)
+    
 
     function onChangeCusDeatil(){
         debugger
@@ -67,6 +70,7 @@ const classes = useStyles();
         setcustDetail(detail)
 
         setnextCust(true)
+        setStepper(1)
     }
 
     function onClickItemPrev(){
@@ -74,6 +78,7 @@ const classes = useStyles();
          CustomerAdd.current = custDetail.add
          CustomerPhone.current = custDetail.phone
         setnextCust(false)
+        setStepper(0)
     }
     function incrementCount()
     {
@@ -192,15 +197,18 @@ const classes = useStyles();
         debugger
         setnextItemAdd(true)
         setOverview(true)
+        setStepper(2)
     }
     function onClickItemOverviewPrev(){
         setnextItemAdd(false)
         setOverview(false)
+        setStepper(1)
     }
 
     return (
         <div>
             <h1>Buy</h1>
+            <CustomizedSteppers stepper={stepper}></CustomizedSteppers>
             {nextCust?"":(
                     <div>
                     <CustomerDeatil 
