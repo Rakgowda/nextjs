@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const TAX_RATE = 0.07;
+
 
 const useStyles = makeStyles({
   table: {
@@ -45,7 +45,7 @@ const ItemOverView = ({customerDetail,itemDetail}) => {
     const classes = useStyles();
     console.log(itemDetail)
     
-
+    const TAX_RATE = 0.07;
     rows = itemDetail.map(e=>createRow(e.itemName, e.qunatity, e.price))
     const invoiceSubtotal = subtotal(rows);
     const invoiceTaxes = TAX_RATE * invoiceSubtotal;
@@ -53,8 +53,23 @@ const ItemOverView = ({customerDetail,itemDetail}) => {
     return (  
 
         <>
-        <h2>Item detail</h2>
-        Cust :- {customerDetail.name}
+        <h2 className="text-center">Overview</h2>
+
+        <div className="d-flex justify-content-start flex-wrap flex-column">
+          <div>
+          <h6>Customer Name :- <span>{customerDetail.name}</span></h6>
+          </div>
+          <div>
+          <h6>Customer address :- <span>{customerDetail.add}</span></h6>
+          </div>
+          <div>
+          <h6>Customer phone :- <span>{customerDetail.phone}</span></h6>
+          </div>
+          <div>
+            
+          </div>
+          
+        </div>
 
         <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
