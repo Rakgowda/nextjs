@@ -1,9 +1,11 @@
 import React from 'react';
+import OrderFlow from "../components/orderFlow"
 
 function Sell(props) {
     return (
         <div>
-            Sell
+            <h1>Sell</h1>
+            <OrderFlow></OrderFlow>
         </div>
     );
 }
